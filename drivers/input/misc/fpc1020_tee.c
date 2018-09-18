@@ -1007,7 +1007,7 @@ static void fpc1020_suspend_resume(struct work_struct *work)
 		 * response on successful verification always fires.
 		 */
 		set_fingerprintd_nice(-20);
-	}
+
 	sysfs_notify(&fpc1020->dev->kobj, NULL,
 				dev_attr_screen_state.attr.name);
 }
