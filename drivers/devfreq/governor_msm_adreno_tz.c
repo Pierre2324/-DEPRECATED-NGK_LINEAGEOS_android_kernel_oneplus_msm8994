@@ -335,14 +335,6 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 
 	*freq = stats.current_frequency;
 
-
-#ifdef CONFIG_ADRENO_IDLER
-	if (adreno_idler(stats, devfreq, freq)) {
-		/* adreno_idler has asked to bail out now */
-		return 0;
-	}
-#endif
-
 	/*
 	 * Force to use & record as min freq when system has
 	 * entered pm-suspend or screen-off state.
