@@ -2769,7 +2769,7 @@ static sector_t f2fs_bmap(struct address_space *mapping, sector_t block)
 int f2fs_migrate_page(struct address_space *mapping,
 		struct page *newpage, struct page *page, enum migrate_mode mode)
 {
-	int rc;
+	int rc, extra_count;
 	struct f2fs_inode_info *fi = F2FS_I(mapping->host);
 	bool atomic_written = IS_ATOMIC_WRITTEN_PAGE(page);
 
@@ -2786,7 +2786,7 @@ int f2fs_migrate_page(struct address_space *mapping,
 	/* one extra reference was held for atomic_write page */
 	extra_count = atomic_written ? 1 : 0;
 	rc = migrate_page_move_mapping(mapping, newpage,
-				page, NULL, mode);
+				page, NULL, mode, extra_count);
 	if (rc != MIGRATEPAGE_SUCCESS) {
 		if (atomic_written)
 			mutex_unlock(&fi->inmem_lock);
